@@ -5,7 +5,7 @@ public class BankDeposit {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите первоначальную сумму вклада:");
-        double depositAmount = scanner.nextDouble();
+        int depositAmount = scanner.nextInt();
 
         System.out.println("Введите годовую ставку, %");
         double depositRate = scanner.nextDouble();
@@ -13,17 +13,17 @@ public class BankDeposit {
         System.out.println("Введите количество полных месяцев размещения вклада");
         int depositPeriod = scanner.nextInt();
 
-        double endDepositAmount = depositAmount * (100 + getEffectiveRate(depositRate, depositPeriod));
-        System.out.println("Размер вклада по окончанию срока составляет " + endDepositAmount);
+        int endDepositAmount = (int) Math.round(depositAmount * (1 + getEffectiveRate(depositRate, depositPeriod) / 100));
+        System.out.printf("Размер вклада по окончанию срока составляет %d%n", endDepositAmount);
 
-        double depositProfit = endDepositAmount - depositAmount;
+        int depositProfit = endDepositAmount - depositAmount;
         System.out.println("Прибыль составила " + depositProfit);
     }
 
     private static double getEffectiveRate(double depositRate, int depositPeriod) {
         double depositAmount = 1.0;
         for (int i = 1; i <= depositPeriod; i++) {
-            depositAmount = depositPeriod * (1 + depositRate / depositPeriod);
+            depositAmount = depositAmount * (1 + depositRate/1200);
         }
         return (depositAmount - 1) * 100;
     }
